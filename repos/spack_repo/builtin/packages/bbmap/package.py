@@ -16,6 +16,7 @@ class Bbmap(Package, SourceforgePackage):
 
     license("BSD-3-Clause-LBNL")
 
+    version("39.56", sha256="a7fe452553f502e1f0c4908c0d69bfe97218217979619a7de89ace3f1b2ed7f4")
     version("39.01", sha256="98608da50130c47f3abd095b889cc87f60beeb8b96169b664bc9d849abe093e6")
     version("38.63", sha256="089064104526c8d696164aefa067f935b888bc71ef95527c72a98c17ee90a01f")
     version("37.78", sha256="f2da19f64d2bfb7db4c0392212668b425c96a27c77bd9d88d8f0aea90a193509")
@@ -23,7 +24,7 @@ class Bbmap(Package, SourceforgePackage):
 
     depends_on("c", type="build")  # generated
 
-    depends_on("java")
+    depends_on("java", type=("build", "link", "run"))
 
     def install(self, spec, prefix):
         install_tree(".", prefix.bin)
