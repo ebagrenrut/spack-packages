@@ -17,7 +17,7 @@ class Pipx(PythonPackage):
 
     maintainers("ebagrenrut")
 
-    build_system("python_pip")
+    build_system("python_pip", default="python_pip")
 
     version("1.8.0", sha256="61a653ef2046de67c3201306b9d07428e93c80e6bebdcbbcb8177ecf3328b403")
     version("1.7.1", sha256="762de134e16a462be92645166d225ecef446afaef534917f5f70008d63584360")
