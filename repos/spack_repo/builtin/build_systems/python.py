@@ -233,7 +233,7 @@ class PythonPackage(PythonExtension):
     #: Callback names for install-time test
     install_time_test_callbacks = ["test_imports"]
 
-    build_system("python_pip")
+    build_system("python_pip", "python_pipx", default="python_pip")
 
     with when("build_system=python_pip"):
         extends("python")
@@ -242,6 +242,14 @@ class PythonPackage(PythonExtension):
         # installing a downloaded wheel, but I don't want to add wheel as a dep to every
         # package manually
         depends_on("py-wheel", type="build")
+
+    with when("build_system=python_pipx"):
+        depends_on("pipx", type="build")
+        # Though `pipx` itself has a dependency on `python`, we must explicitly include
+        # `python` as a dependency to ensure that, upon installation of the pipx-built
+        # package, Spack rewrites any paths to the `python` commands and appropriately
+        # sets any symlinks to `python` commands
+        depends_on("python")
 
     homepage: ClassProperty[Optional[str]] = classproperty(_homepage)
     url: ClassProperty[Optional[str]] = classproperty(_url)
@@ -382,26 +390,6 @@ class PythonPipBuilder(BuilderWithDefaults):
             pip(*args)
 
     run_after("install")(execute_install_time_tests)
-
-
-class PipxPythonPackage(PythonPackage):
-    """Specialized class for packages installed using pipx"""
-
-    # To be used in UI queries that require to know which
-    # build-system class we are using
-    build_system_class = "PipxPythonPackage"
-    #: Legacy buildsystem attribute used to deserialize and install old specs
-    default_buildsystem = "python_pipx"
-
-    build_system("python_pipx")
-
-    with when("build_system=python_pipx"):
-        depends_on("pipx", type="build")
-        # Though `pipx` itself has a dependency on `python`, we must explicitly include
-        # `python` as a dependency to ensure that, upon installation of the pipx-built
-        # package, Spack rewrites any paths to the `python` commands and appropriately
-        # sets any symlinks to `python` commands
-        depends_on("python")
 
 
 @register_builder("python_pipx")
