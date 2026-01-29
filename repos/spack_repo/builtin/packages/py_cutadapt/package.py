@@ -2,12 +2,12 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack_repo.builtin.build_systems.python import PipxPythonPackage
+from spack_repo.builtin.build_systems.python import PythonPackage
 
 from spack.package import *
 
 
-class PyCutadapt(PipxPythonPackage):
+class PyCutadapt(PythonPackage):
     """Cutadapt finds and removes adapter sequences, primers, poly-A tails and
     other types of unwanted sequence from your high-throughput sequencing
     reads."""
@@ -18,7 +18,7 @@ class PyCutadapt(PipxPythonPackage):
 
     license("MIT")
 
-    build_system("python_pip", "python_pipx", default="python_pip")
+    #build_system("python_pip", "python_pipx", default="python_pip")
 
     version("4.7", sha256="8738a35b363eaf615665a4e7d1b4beb385cd93fb7ffdcf82cd4ab6457acc879b")
     version("4.4", sha256="4554157c673022e1c433fcd6e3b803008fef60c8e71c01215e4aa04b0f09fe83")
