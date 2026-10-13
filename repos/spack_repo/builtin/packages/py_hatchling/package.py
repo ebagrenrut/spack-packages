@@ -54,7 +54,7 @@ class PyHatchling(PythonPackage):
 
         depends_on("py-tomli@1.2.2:", when="^python@:3.10")
 
-        deoends_on("py-tomlkit@0.11.1:", when="@1.32:")
+        depends_on("py-tomlkit@0.11.1:", when="@1.32:")
 
         depends_on("py-trove-classifiers", when="@1.14:")
 
